@@ -1,0 +1,181 @@
+{% extends "book/layout.html" %}
+
+{% block body%}
+<div class="d-flex side">
+  <div class="container col-md-4 col-lg-3 bg-dark side-nav">
+    <div class="container ">
+      <form action="{% url 'search' %}" class="py-3" method="get">
+        <div class="col d-grid ">
+          <h5 style="color: white; font-size: 25px; font-weight: 400;">Search</h5>
+          <div class="mt-4">
+            <select name="search_city" class="form-select form-select mb-0" aria-label=".form-select-sm example">
+              {% for address in addresses %}
+              <option value="{{address.a_city}}">{{address.a_city}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <!-- Button trigger modal -->
+        </div>
+        <div class="col mt-0">
+          <div>
+            <label class="input-label small-label">Checkin</label>
+            <input type="date" class="form-control" placeholder="Checkin Date">
+          </div>
+          <div class="mt-0">
+            <label class=" input-label small-label">Checkout</label>
+            <input type="date" class="form-control" placeholder="Checkout Date">
+          </div>
+        </div>
+        <div class="col d-grid gap-1 mt-4">
+          <button type="button" class="btn btn-outline-light mb-3" data-bs-toggle="modal" data-bs-target="#searchModal">
+            Select Number of People
+          </button>
+          <div class="mb-2">
+            <input class="form-control" id="field-1" type="text" value="Disabled readonly input"
+              aria-label="Disabled input example" disabled readonly>
+            <div id="emailHelp" class="form-text">This field shows no. of people and rooms selected</div>
+          </div>
+          <button type="submit" class="btn btn-success mb-3 d-block " id="bold-button"
+            style="font-size: large; font-weight: 600;">Search</button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Number of People</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form class="form-floating">
+                  <div class="row">
+                    <div class="col ">
+                      <label for="floatingInput">No. of Adults</label>
+                      <input class="form-control" id="adults-no-1" name="person" type="number" min="0" max="30"
+                        value="0">
+                    </div>
+                    <div class="col ">
+                      <label for="floatingInput">No. of Children</label>
+                      <input class="form-control" type="number" id="children-no-1" min="0" max="30" value="0">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label for="floatingInput">No. of Rooms</label>
+                      <input class="form-control" type="number" id="rooms-no-1" min="0" max="30" value="0">
+                    </div>
+                </form>
+              </div>
+              <div class="modal-footer mt-3">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="done-selection-1"
+                  data-bs-dismiss="modal">Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+    <hr style="background-color: rgb(255, 255, 255); margin: 0%;  opacity: 0.7;">
+    <div class="container bg-ligth">
+      <div class="col">
+        <h5 style="color: white; font-size: 25px; font-weight: 400;">Filter by</h5>
+
+      </div>
+      <hr style="background-color: rgb(255, 255, 255); margin: 0%;  opacity: 0.7;">
+      <div class="col p-3">
+
+        <div class="form-check" style="color: white;">
+          <input class="form-check-input" type="checkbox" value="Hotel" id="check1" name="checkbox">
+          <label class="form-check-label" for="flexCheckDefault">
+            Hotels
+          </label>
+        </div>
+        <div class="form-check" style="color: white;">
+          <input class="form-check-input" type="checkbox" value="Apartment" id="check2" name="checkbox">
+          <label class="form-check-label" for="flexCheckDefault">
+            Apartments
+          </label>
+        </div>
+        <div class="form-check" style="color: white;">
+          <input class="form-check-input" type="checkbox" value="Resort" id="check3" name="checkbox">
+          <label class="form-check-label" for="flexCheckDefault">
+            Resorts
+          </label>
+        </div>
+        <div class="form-check" style="color: white;">
+          <input class="form-check-input" type="checkbox" value="Resturant" id="check4" name="checkbox">
+          <label class="form-check-label" for="flexCheckDefault">
+            Resturants
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container col-md-8 col-lg-9 main" style="background-color: #eee; padding: 4rem 3rem;">
+  <!--Cards-->
+  {% for card in AllCards %}
+  {% with forloop.counter0 as outer_counter %}
+  <div class="card mb-5 {{card.a_category}}">
+    <h5 class="card-header">{{card.a_category}}</h5>
+    <div class="card-body row">
+      <!--image-->
+      <div class="col-lg-4 col-md-3 img-container">
+        <img src="{{card.a_img}}" class="img-fluid rounded ">
+      </div>
+      <div class="col-lg-7 col-md-8">
+        <div class="btn-group me-2" role="group" aria-label="Second group" style="
+              position: absolute;
+              right: 0%;
+              top: 5%;">
+          <button type="button" class="btn btn-outline-secondary " data-toggle="collapse"
+            data-target="#card-price-{{forloop.counter0}}">Show Price</button>
+          <button type="button" class="btn btn-outline-secondary vist-toggler-button"
+            onclick="document.location.href = '{% url 'advert' id=card.id %}'">See Details</button>
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div>
+              <h5 class="card-title">{{card.a_name.a_selfname}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">by {{card.a_name.a_companyname}}</h6>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="ratings">
+                {% for rating in rating_list%}
+                {% if forloop.counter0 == outer_counter %}
+                {% for _ in rating %}
+                <i class="fa-solid fa-star" style="color: #000000;"></i>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+              </div>
+
+            </div>
+          </div>
+          <p class="card-text">{{card.a_description}}</p>
+
+        </div>
+      </div>
+    </div>
+    {% if card.a_category == "Hotel" or card.a_category == "Resturant" %}
+    {% else %}
+    <div class="collapse" id="card-price-{{forloop.counter0}}">
+      <hr>
+      <div class="py-3 px-3">
+        <h5>Price : $ {{card.a_price}} Per Night</h5>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% endwith %}
+  {% endfor %}
+
+</div>
+</div>
+{% endblock %}

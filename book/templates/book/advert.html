@@ -1,0 +1,1110 @@
+{% extends "book/layout.html" %}
+
+{% block body %}
+<div class="advert-top-container" style="
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5rem 3.8rem 0rem 5rem;
+    justify-content: space-between;
+    ">
+  <div class=" img-container" style="
+    min-width: 300px;
+    margin-bottom: 3rem;">
+    <img src="{{ card_image }}" class="img-fluid rounded" style="max-width: 600px;
+        width: 40vw;" />
+  </div>
+  <div class="second-container" style="
+      min-width: 300px;
+      padding: none;
+      ">
+    <div class="mb-4">
+      <div class="advert-upper-nav">
+        <div class="btn-group me-2" role="group" aria-label="Second group">
+          <button type="button" class="btn btn-secondary"
+            onclick="document.location.href='#building_detail';">Info</button>
+          {% if facilities %}
+          <button type="button" class="btn btn-secondary"
+            onclick="document.location.href='#facilites';">Facilites</button>
+          {% endif %}
+          <button type="button" class="btn btn-secondary">House Rules</button>
+          <button type="button" class="btn btn-secondary"
+            onclick="document.location.href='#book-reserve';">Prices</button>
+          {% if reviews %}
+          <button type="button" class="btn btn-secondary" onclick="document.location.href='#customer_reviews';">Guest
+            Reviews</button>
+          {% endif %}
+          <button type="button" onclick="document.location.href='#book-reserve';"
+            class="btn btn-outline-dark blue-button-hover">Book</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4 class="card-title">{{card.a_name.a_selfname}},{{card.a_address.a_city}}</h4>
+      <h5 class="card-subtitle mb-1 text-muted">by {{card.a_name.a_companyname}}</h5>
+      <div class="mt-3" style="
+              display: grid;
+              grid-template-columns: auto auto;">
+        <i class="fa fa-solid fa-location-dot mr-3 pt-1"></i>
+        <p class="text-muted" style="display: flex; align-items: center;">{{card.a_address.a_address}}</p>
+      </div>
+    </div>
+    <div style="max-width: 40vw;">
+      {{card.a_description}}
+
+    </div>
+  </div>
+</div>
+
+<div class="container row pb-5 mx-auto" style="
+    padding-top: 3rem;
+    width: 100%;
+    justify-content: space-between;">
+  <div class="col-mg-7 col-sm-12" style="max-width: 700px;
+    ">
+    <h5>Details</h5>
+    <p>{{card.a_detail}}</p>
+
+  </div>
+  {% if facilities %}
+  <div class="advert-fac card mt-3" id="building_detail" style="
+    width: 30vw;
+    min-width: 15rem;
+    background-color: #6c757d;
+    color: azure;
+    border: none !important;
+    cursor: pointer;
+    padding-left: 0%;
+    padding-right: 0%;
+    height: fit-content;
+    " id="facilites">
+    <div class="card-header" style="
+      font-size: large;
+      font-weight: 500;">Facilites</div>
+    <div class="card-body" style="
+      background-color: #f6f6f6;
+      padding-bottom: 2rem;
+      color: rgb(50, 50, 50);">
+      <div class="container">
+        <div class="d-flex justify-content-around flex-wrap" style="padding: 1rem .5rem;">
+          {% if card.a_facilites.a_wifi %}
+          <div class="d-flex justify-content-center flex-column pr-3">
+            <div>
+              <i class="fa fa-solid fa-wifi fa-2x"></i>
+            </div>
+            <div>
+              <p class="fs-6" style="text-align: center;">Wifi</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_parking %}
+          <div class="d-flex justify-content-center flex-column pr-3">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-square-parking fa-2x"></i>
+            </div>
+            <div>
+              <p class="fs-6" style="text-align: center;">Parking</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_room_service %}
+          <div class="d-flex justify-content-center flex-column pr-3">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-bell-concierge fa-2x"></i>
+            </div>
+            <div>
+              <p style="text-align: center;" class="fs-6">Room Service</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_fitness %}
+          <div class="d-flex justify-content-center flex-column">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-dumbbell fa-2x"></i>
+            </div>
+            <div>
+              <p style="text-align: center;" class="fs-6">Indoor Fitness</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_family_rooms %}
+          <div class="d-flex justify-content-center flex-column">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-people-group fa-2x"></i>
+            </div>
+            <div>
+              <p style="text-align: center;" class="fs-6">Family Rooms</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_bar %}
+          <div class="d-flex justify-content-center flex-column">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-martini-glass fa-2x "></i>
+            </div>
+            <div>
+              <p style="text-align: center;" class="fs-6">Bar</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if card.a_facilites.a_pool %}
+          <div class="d-flex justify-content-center flex-column">
+            <div style="text-align: center;">
+              <i class="fa fa-solid fa-person-swimming fa-2x"></i>
+            </div>
+            <div>
+              <p style="text-align: center;" class="fs-6">Swimming Pool</p>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+
+
+
+<!-- Price and Avalible rooms Table-->
+<!-- Price and Avalible rooms Table-->
+<!-- Price and Avalible rooms Table-->
+<section id="book-reserve">
+  {% if room_categorys %}
+  <form action="{% url 'makeBooking' id=card.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+      <div class="table-responsive card shadow mb-5 bg-body rounded p-0 rounded-3">
+        <table class="table table-light table-striped rounded align-middle">
+          <thead class="table card-header" style="color: white !important; background-color: #6c757d;">
+            <tr>
+              <th class="p-3" scope="col">ROOM TYPE</th>
+              <th class="p-3" scope="col">SLEEPS</th>
+              <th class="p-3" scope="col">PER NIGHT</th>
+              <th class="p-3" scope="col">AVALIBLE</th>
+              <th class="p-3" scope="col">SELECT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in room_categorys %}
+            <tr>
+              <th class=" pl-4 pt-3 pb-3" scope="row" style="color: #666666;">{{category.a_category}}
+              </th>
+              <td class="pl-4  pt-3 pb-3">{{guest}}</td>
+              <td class="pl-4  pt-3 pb-3">$ {{category.a_price}}</td>
+              {% if forloop.counter == 1 %}
+              <td class="pl-4  pt-3 pb-3">{{rooms_count.0}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-1" aria-label="Default select example"
+                  name="A_grade_rooms">
+                  <option selected>0</option>
+                  {% for room in A_grade %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% elif forloop.counter == 2 %}
+              <td class="pl-4  pt-3 pb-3">{{rooms_count.1}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-2" aria-label="Default select example"
+                  name="B_grade_rooms">
+                  <option selected>0</option>
+                  {% for room in B_grade %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% else %}
+              <td class="pl-4  pt-3 pb-3">{{rooms_count.2}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-3" aria-label="Default select example"
+                  name="C_grade_rooms">
+                  <option selected>0</option>
+                  {% for room in C_grade %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% endif%}
+            </tr>
+            {% endfor %}
+            <tr>
+              <td colspan="5" class="align-items-center mx-auto" style="width: 100%;">
+                {% if user.is_authenticated %}
+                <div class="d-grid w-100"><button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#payment-form" style="height: 3rem !important;
+                  font-size: larger;" id="room_selected_button">Book</button></div>
+                {% else %}
+                <div class="d-grid w-100"><button class="btn btn-secondary" type="button"
+                    onclick="window.location.href='{% url 'login' %}'">Sign in to Book</button></div>
+                {% endif %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal" id="payment-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Finalizing Your Booking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label" for="place">Place</label>
+                <input type="text" class="form-control" id="place" name="place_name" value={{card.a_name.a_selfname}}
+                  readonly>
+              </div>
+              <div class="col-md-6">
+                <label for="Place-company" class="form-label">By</label>
+                <input type="text" class="form-control" id="Place-company" name="company_name"
+                  value={{card.a_name.a_companyname}} readonly disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" name="place_city" value={{card.a_address.a_city}}
+                  readonly disabled>
+              </div>
+              <div class="col-md-4">
+                <label for="inputZip" class="form-label">country</label>
+                <input type="text" class="form-control" id="inputZip" name="place_country"
+                  value={{card.a_address.a_country}} readonly disabled>
+              </div>
+
+            </div>
+            {% for category in room_categorys%}
+            <div class="row mt-3 mb-3">
+              <label for="colFormLabel" class="col-sm-2 col-form-label">{{category.a_category}}</label>
+              <div class="col-sm-10">
+                <input type="numbers" id="colFormLabel" class="form-control payment-modal-selected-rooms">
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkin Date</strong></h5>
+                <input type="date" class="form-control" name="booked_from" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkout Date</strong></h5>
+                <input type="date" class="form-control" name="booked_till" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+            </div>
+            <!--Customer details-->
+            <h4 class="bold my-3"><strong>Customer Details</strong></h4>
+            <div class="col-md-12">
+              <p class="bold">Are you traveling for work?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio2">No</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p class="bold">who are you booking for?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio3">I'm the main guest</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio4">I'am booking for someone else</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Full Guest Name</label>
+              <input type="text" class="form-control" name="guest_name" id="inputPassword4"
+                placeholder="First Name, Last Name">
+            </div>
+            <h4 class="bold my-3"><strong>Special Request</strong></h4>
+            <p class="lead small">Special requests can't be guaranteed, but the property will do its best to meet your
+              needs.
+              You can
+              always make a
+              special request after your booking is complete.</p>
+            <div class="form-floating">
+              <textarea class="form-control" name="customer_request" placeholder="Leave a comment here...."
+                id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Leave your request</label>
+            </div>
+            <h4 class="bold my-3"><strong>Your estimated arrival time</strong></h4>
+            <div class="cs-form">
+              <p><strong>Select Your arrival time</strong></p>
+              <input type="time" class="form-control" name="arrival_time" />
+              <div class="form-text">The Time is for {{card.a_address.a_city}} time zone</div>
+            </div>
+            <h4 class="bold my-3"><strong>Review House Rules</strong></h4>
+            <p style="font-weight: 600;">By continuing to the next step, you agree to these house rules.
+            <p>
+              {% if not user.is_authenticated %}
+            <div class="col-12">
+              <button type="button" class="btn btn-primary" onclick="document.location.href = '{% url 'login' %}'">Sign
+                in</button>
+            </div>
+            {% endif %}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#payment-form-second">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Second modal-->
+    <!--Second modal-->
+    <!--Second modal-->
+
+    <div class=" modal fade payment-modal-second" id="payment-form-second" aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Final Step</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="bold my-3"><strong>Your Address information</strong></h4>
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label ">Address</label>
+              <input type="text" class="form-control" name="customer_address" placeholder="your Address here" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">city</label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="City you live in"
+                name="customer_address_city" required>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPassword4" class="form-label">Zipcode</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_zipcode" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Country</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_country" required>
+            </div>
+            <div class="col-md-6 my-3">
+              <label for="floatingPassword" class="form-label">Your country phone number</label>
+              <input type="tel" class="form-control" id="floatingPassword" name="customer_phone"
+                placeholder="92-324-3609030" pattern="[0-9]{2}-[0-9]{3}-[0-9]{7}" maxlength="20">
+              <div id="emailHelp" class="form-text">Format : 92-324-3609030</div>
+              <div id="emailHelp" class="form-text">So the property can reach you</div>
+            </div>
+            <h4 class="bold my-3"><strong>Payment</strong></h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Price per item</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in room_categorys %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{category.a_category}}</td>
+                  <td class="room-price">{{category.a_price}}</td>
+                  <td class="price-table-indiv-price"></td>
+                  <td class="room-total-price"></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td colspan="4"><strong>Total</strong></td>
+                  <td class="total"><strong></strong></td>
+                  <input class="input-total" name="total-payment" hidden>
+                </tr>
+              </tbody>
+            </table>
+            <div class="container mb-4">
+              <h4><strong>How do you want to pay?</strong></h4>
+            </div>
+            <div class="col-md-12 my-3" style="    display: flex;
+    align-items: center;
+    justify-content: space-around;">
+
+              <div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group"
+                style="display: contents;max-width: 600px;">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-3" for="btnradio1" style="margin-right: 2vw;"><i
+                    class="fa fa-solid fa-credit-card fa-4x"></i></label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-dark rounded" for="btnradio2" style="margin-right: 2vw;"><i
+                    class="fa fa-brands fa-cc-paypal fa-4x"></i></label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-dark rounded" for="btnradio3" style="margin-right: 2vw;"><i
+                    class="fa fa-brands fa-google-pay fa-4x"></i></label>
+              </div>
+            </div>
+            <div>
+              <div class="col-md-6 mb-3">
+                <label for="inputEmail4" class="form-label ">Card Holder Name</label>
+                <input type="text" class="form-control" id="inputEmail4" name="card_holder_name" required>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"><i class="fa fa-solid fa-credit-card"></i></span>
+                  <input type="text" class="form-control" placeholder="Card number" name="card_number" maxlength="16">
+                </div>
+              </div>
+              <div class="row container">
+                <div class="col-md-3 mb-3">
+                  <label for="inputEmail4" class="form-label ">Card Expiry Date</label>
+                  <input type="date" class="form-control" id="inputEmail4" name="card_expiry_date" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="inputEmail4" class="form-label ">CVC</label>
+                  <input type="number" class="form-control" placeholder="1234" maxlength="4" name="card_cvc"
+                    id="inputEmail4" required>
+                </div>
+              </div>
+            </div>
+            <div class="container hidden-section">
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark btn-lg" type="button">PayPal</button>
+              </div>
+            </div>
+            <div class="container hidden-section">
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark btn-lg" type="button">Google Pay</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+              data-bs-dismiss="modal">Back to first</button>
+            <button class="btn btn-success" type="submit">Done</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="container" style="padding-top: 1.6rem; max-width: 950px;">
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+        </tr>
+      </thead>
+      <tbody class="mx-auto">
+        {% for category in room_categorys%}
+        <tr>
+          <div class="d-grid mx-auto p-3 gap-2" style="border-bottom: solid .5px #66666636 !important;">
+            <div class="fw-bold fs-4">{{category.a_category}}</div>
+            <div>{{category.a_description}}</div>
+            <div class="fw-bold">Price : ${{category.a_price}} per Night</div>
+          </div>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  <!--Customer  Reviews-->
+  <!--Customer  Reviews-->
+  <!--Customer  Reviews-->
+  <!--Customer  Reviews-->
+  {% if reviews %}
+  <div class="container" style="padding: 2.5rem 1rem;" id="customer_reviews">
+    <h2 style="font-weight: 600;">Customer Reviews</h4>
+      <hr>
+      <div class="d-flex justify-content-around flex-wrap " style="padding: 2rem 1rem;">
+        {% for review in reviews %}
+        {% with forloop.counter0 as outer_counter %}
+        <div class="card shadow hover-card" style="width: 40vw;max-width: 500px; cursor:pointer;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h5 class="card-title">By {{review.a_author.username}}</h5>
+              </div>
+              <div>
+                <p class="text-muted">on {{review.a_date}}</p>
+              </div>
+            </div>
+            <h6 class="card-subtitle mb-2 text-muted rating">
+              {% for rating in rating_list%}
+              {% if forloop.counter0 == outer_counter %}
+              {% for _ in rating %}
+              <i class="fa-solid fa-star" style="color: #000000;"></i>
+              {% endfor %}
+              {% endif %}
+              {% endfor %}
+            </h6>
+            <p class="card-text">{{review.a_message}}
+            </p>
+          </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+      </div>
+  </div>
+  {% endif %}
+  <!--Table-->
+  <!--Table-->
+  <!--Table-->
+  {% if table_categorys %}
+  <form action="{% url 'makeBooking' id=card.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+      <div class="table-responsive card shadow mb-5 bg-body rounded p-0 rounded-3">
+        <table class="table table-light table-striped rounded align-middle">
+          <thead class="table card-header" style="color: white !important; background-color: #6c757d;">
+            <tr>
+              <th class="p-3" scope="col">TABLE TYPE</th>
+              <th class="p-3" scope="col">FOR</th>
+              <th class="p-3" scope="col">AVALIBLE</th>
+              <th class="p-3" scope="col">SELECT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in table_categorys %}
+            <tr>
+              <th class=" pl-4 pt-3 pb-3" scope="row" style="color: #666666;">{{category.a_category}}
+              </th>
+              <td class="pl-4  pt-3 pb-3">{{guest}}</td>
+
+              {% if forloop.counter == 1 %}
+              <td class="pl-4  pt-3 pb-3">{{tables_count.0}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-1" aria-label="Default select example"
+                  name="VIP">
+                  <option selected>0</option>
+                  {% for table in VIP %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% elif forloop.counter == 2 %}
+              <td class="pl-4  pt-3 pb-3">{{tables_count.1}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-2" aria-label="Default select example"
+                  name="Gold">
+                  <option selected>0</option>
+                  {% for table in Gold %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% else %}
+              <td class="pl-4  pt-3 pb-3">{{tables_count.2}}</td>
+              <!-- selection -->
+              <td class="pl-4  pt-3 pb-3">
+                <select class="form-select room-selector room-selector-3" aria-label="Default select example"
+                  name="Common">
+                  <option selected>0</option>
+                  {% for table in Common %}
+                  <option>{{forloop.counter}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+              {% endif%}
+            </tr>
+            {% endfor %}
+            <tr>
+              <td colspan="5" class="align-items-center mx-auto" style="width: 100%;">
+                {% if user.is_authenticated %}
+                <div class="d-grid w-100"><button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#payment-form" style="height: 3rem !important;
+                  font-size: larger;" id="room_selected_button">Book</button></div>
+                {% else %}
+                <div class="d-grid w-100"><button class="btn btn-secondary" type="button"
+                    onclick="window.location.href='{% url 'login' %}'">Sign in to Book</button></div>
+                {% endif %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="container" style="padding-top: 1.6rem; max-width: 950px; padding-bottom: 2.6rem;">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+          </tr>
+        </thead>
+        <tbody class="mx-auto">
+          {% for category in table_categorys %}
+          <tr>
+            <div class="d-grid mx-auto p-3 gap-2" style="border-bottom: solid .5px #66666636 !important;">
+              <div class="fw-bold fs-4">{{category.a_category}}</div>
+              <div>{{category.a_description}}</div>
+            </div>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal" id="payment-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Finalizing Your Booking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label" for="place">Place</label>
+                <input type="text" class="form-control" id="place" name="place_name" value={{card.a_name.a_selfname}}
+                  readonly>
+              </div>
+              <div class="col-md-6">
+                <label for="Place-company" class="form-label">By</label>
+                <input type="text" class="form-control" id="Place-company" name="company_name"
+                  value={{card.a_name.a_companyname}} readonly disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" name="place_city" value={{card.a_address.a_city}}
+                  readonly disabled>
+              </div>
+              <div class="col-md-4">
+                <label for="inputZip" class="form-label">country</label>
+                <input type="text" class="form-control" id="inputZip" name="place_country"
+                  value={{card.a_address.a_country}} readonly disabled>
+              </div>
+
+            </div>
+            {% for category in table_categorys %}
+            <div class="row mt-3 mb-3">
+              <label for="colFormLabel" class="col-sm-2 col-form-label">{{category.a_category}}</label>
+              <div class="col-sm-10">
+                <input type="numbers" id="colFormLabel" class="form-control payment-modal-selected-rooms">
+              </div>
+            </div>
+            {% endfor %}
+
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkin Date</strong></h5>
+                <input type="datetime-local" class="form-control" name="booked_from" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkout Date</strong></h5>
+                <input type="datetime-local" class="form-control" name="booked_till" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+            </div>
+            <!--Customer details-->
+            <h4 class="bold my-3"><strong>Customer Details</strong></h4>
+            <div class="col-md-12">
+              <p class="bold">Are you traveling for work?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio2">No</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p class="bold">who are you booking for?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio3">I'm the main guest</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio4">I'am booking for someone else</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Full Guest Name</label>
+              <input type="text" class="form-control" name="guest_name" id="inputPassword4"
+                placeholder="First Name, Last Name">
+            </div>
+            <h4 class="bold my-3"><strong>Special Request</strong></h4>
+            <p class="lead small">Special requests can't be guaranteed, but the property will do its best to meet your
+              needs.
+              You can
+              always make a
+              special request after your booking is complete.</p>
+            <div class="form-floating">
+              <textarea class="form-control" name="customer_request" placeholder="Leave a comment here...."
+                id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Leave your request</label>
+            </div>
+            <h4 class="bold my-3"><strong>Review Resturant Rules</strong></h4>
+            <p style="font-weight: 600;">By continuing to the next step, you agree to these house rules.
+            <p>
+              {% if not user.is_authenticated %}
+            <div class="col-12">
+              <button type="button" class="btn btn-primary" onclick="document.location.href = '{% url 'login' %}'">Sign
+                in</button>
+            </div>
+            {% endif %}
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#payment-form-second">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Second modal-->
+    <!--Second modal-->
+    <!--Second modal-->
+
+    <div class=" modal fade payment-modal-second" id="payment-form-second" aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Final Step</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="bold my-3"><strong>Your Address information</strong></h4>
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label ">Address</label>
+              <input type="text" class="form-control" name="customer_address" placeholder="your Address here" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">city</label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="City you live in"
+                name="customer_address_city" required>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPassword4" class="form-label">Zipcode</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_zipcode" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Country</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_country" required>
+            </div>
+            <div class="col-md-6 my-3">
+              <label for="floatingPassword" class="form-label">Your country phone number</label>
+              <input type="tel" class="form-control" id="floatingPassword" name="customer_phone"
+                placeholder="92-324-3609030" pattern="[0-9]{2}-[0-9]{3}-[0-9]{7}" maxlength="20">
+              <div id="emailHelp" class="form-text">Format : 92-324-3609030</div>
+              <div id="emailHelp" class="form-text">So the property can reach you</div>
+            </div>
+            <h4 class="bold my-3"><strong>Your Selection</strong></h4>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">For</th>
+                  <th scope="col">Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for category in table_categorys %}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>{{category.a_category}}</td>
+                  <td>{{guest}}</td>
+                  <td class="price-table-indiv-price"></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+              data-bs-dismiss="modal">Back to first</button>
+            <button class="btn btn-success" type="submit">Done</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+  {% if not table_categorys and not room_categorys %}
+  <div class="d-grid gap-2 col-6 mx-auto" style="margin: 3rem auto;">
+    {% if user.is_authenticated %}
+    <button class="btn btn-primary fw-bold blue-button-hover" type="button"
+      style="background-color:  rgb(0, 48, 87) !important; padding: .7rem !important; font-size: larger;"
+      data-bs-toggle="modal" data-bs-target="#payment-form">I'll
+      Reserve</button>
+    {% else %}
+    <button class="btn btn-primary fw-bold blue-button-hover" type="button"
+      style="background-color:  rgb(0, 48, 87) !important; padding: .7rem !important; font-size: larger;"
+      onclick="document.location.href='{% url 'login' %}'">I'll
+      Reserve</button>
+    {% endif %}
+  </div>
+  <form action="{% url 'makeBooking' id=card.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Finalizing Booking Modal-->
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal" id="payment-form" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content ">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Finalizing Your Booking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label" for="place">Place</label>
+                <input type="text" class="form-control" id="place" name="place_name" value={{card.a_name.a_selfname}}
+                  readonly>
+              </div>
+              <div class="col-md-6">
+                <label for="Place-company" class="form-label">By</label>
+                <input type="text" class="form-control" id="Place-company" name="company_name"
+                  value={{card.a_name.a_companyname}} readonly disabled>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" name="place_city" value={{card.a_address.a_city}}
+                  readonly disabled>
+              </div>
+              <div class="col-md-4">
+                <label for="inputZip" class="form-label">country</label>
+                <input type="text" class="form-control" id="inputZip" name="place_country"
+                  value={{card.a_address.a_country}} readonly disabled>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkin Date</strong></h5>
+                <input type="date" class="form-control start-date" name="booked_from" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+              <div class="col-md-6">
+                <h5 class="bold my-3"><strong>Checkout Date</strong></h5>
+                <input type="date" class="form-control end-date" name="booked_till" required>
+                <div class="form-text">Select your checkout date</div>
+              </div>
+            </div>
+            <!--Customer details-->
+            <h4 class="bold my-3"><strong>Customer Details</strong></h4>
+            <div class="col-md-12">
+              <p class="bold">Are you traveling for work?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio2">No</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p class="bold">who are you booking for?</p>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                  value="option1">
+                <label class="form-check-label" for="inlineRadio3">I'm the main guest</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4"
+                  value="option2">
+                <label class="form-check-label" for="inlineRadio4">I'am booking for someone else</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Full Guest Name</label>
+              <input type="text" class="form-control" name="guest_name" id="inputPassword4"
+                placeholder="First Name, Last Name">
+            </div>
+            <h4 class="bold my-3"><strong>Special Request</strong></h4>
+            <p class="lead small">Special requests can't be guaranteed, but the property will do its best to meet your
+              needs.
+              You can
+              always make a
+              special request after your booking is complete.</p>
+            <div class="form-floating">
+              <textarea class="form-control" name="customer_request" placeholder="Leave a comment here...."
+                id="floatingTextarea2" style="height: 100px"></textarea>
+              <label for="floatingTextarea2">Leave your request</label>
+            </div>
+            <h4 class="bold my-3"><strong>Your estimated arrival time</strong></h4>
+            <div class="cs-form">
+              <p><strong>Select Your arrival time</strong></p>
+              <input type="time" class="form-control" name="arrival_time" />
+              <div class="form-text">The Time is for {{card.a_address.a_city}} time zone</div>
+            </div>
+            <h4 class="bold my-3"><strong>Review House Rules</strong></h4>
+            <p style="font-weight: 600;">By continuing to the next step, you agree to these house rules.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary final-payment-btn" data-bs-toggle="modal"
+              data-bs-target="#payment-form-second">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Second modal-->
+    <!--Second modal-->
+    <!--Second modal-->
+
+    <div class=" modal fade payment-modal-second" id="payment-form-second" aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Final Step</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="bold my-3"><strong>Your Address information</strong></h4>
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label ">Address</label>
+              <input type="text" class="form-control" name="customer_address" placeholder="your Address here" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">city</label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="City you live in"
+                name="customer_address_city" required>
+            </div>
+            <div class="col-md-4">
+              <label for="inputPassword4" class="form-label">Zipcode</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_zipcode" required>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Country</label>
+              <input type="text" class="form-control" id="inputPassword4" name="customer_address_country" required>
+            </div>
+            <div class="col-md-6 my-3">
+              <label for="floatingPassword" class="form-label">Your country phone number</label>
+              <input type="tel" class="form-control" id="floatingPassword" name="customer_phone"
+                placeholder="92-324-3609030" pattern="[0-9]{2}-[0-9]{3}-[0-9]{7}" maxlength="20">
+              <div id="emailHelp" class="form-text">Format : 92-324-3609030</div>
+              <div id="emailHelp" class="form-text">So the property can reach you</div>
+            </div>
+            <h4 class="bold my-3"><strong>Payment</strong></h4>
+            <table class="table">
+              <tr>
+                <td colspan="4">Per Night</td>
+                <td class="price-per-night">{{card.a_price}}</td>
+              </tr>
+              <tr>
+                <td colspan="4"><strong>Total</strong></td>
+                <td><strong class="total-payment"></strong> for <span class="stay-days fw-bold"></span> Nights</td>
+                <input class="input-total" name="total-payment" hidden>
+              </tr>
+              </tbody>
+            </table>
+            <div class="container mb-4">
+              <h4><strong>How do you want to pay?</strong></h4>
+            </div>
+            <div class="col-md-12 my-3" style="    display: flex;
+      align-items: center;
+      justify-content: space-around;">
+
+              <div class="btn-group btn-group-lg" role="group" aria-label="Basic radio toggle button group"
+                style="display: contents;max-width: 600px;">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+                <label class="btn btn-outline-dark rounded-3" for="btnradio1" style="margin-right: 2vw;"><i
+                    class="fa fa-solid fa-credit-card fa-4x"></i></label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-dark rounded" for="btnradio2" style="margin-right: 2vw;"><i
+                    class="fa fa-brands fa-cc-paypal fa-4x"></i></label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-dark rounded" for="btnradio3" style="margin-right: 2vw;"><i
+                    class="fa fa-brands fa-google-pay fa-4x"></i></label>
+              </div>
+            </div>
+            <div>
+              <div class="col-md-6 mb-3">
+                <label for="inputEmail4" class="form-label ">Card Holder Name</label>
+                <input type="text" class="form-control" id="inputEmail4" name="card_holder_name" required>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <span class="input-group-text"><i class="fa fa-solid fa-credit-card"></i></span>
+                  <input type="text" class="form-control" placeholder="Card number" name="card_number" maxlength="16">
+                </div>
+              </div>
+              <div class="row container">
+                <div class="col-md-3 mb-3">
+                  <label for="inputEmail4" class="form-label ">Card Expiry Date</label>
+                  <input type="date" class="form-control" id="inputEmail4" name="card_expiry_date" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="inputEmail4" class="form-label ">CVC</label>
+                  <input type="number" class="form-control" placeholder="1234" maxlength="4" name="card_cvc"
+                    id="inputEmail4" required>
+                </div>
+              </div>
+            </div>
+            <div class="container hidden-section">
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark btn-lg" type="button">PayPal</button>
+              </div>
+            </div>
+            <div class="container hidden-section">
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-dark btn-lg" type="button">Google Pay</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+              data-bs-dismiss="modal">Back to first</button>
+            <button class="btn btn-success" type="submit">Done</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

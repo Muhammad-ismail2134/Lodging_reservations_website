@@ -1,0 +1,163 @@
+{% extends "book/layout.html" %}
+{% block body%}
+<div class="account-div">
+    <div class="account-info-container">
+        <div class="account-info col-md-12 d-flex flex-column">
+            <div class="justify-content-center mx-auto" style="padding-top: .5rem;">
+                <h5 class="lead display-3 pt-3">{{user.username}}</h5>
+                <p class="lead display-6" style="font-size: smaller;">Login in as {{user.username}}</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="user-bookings-container">
+        <div class="container mb-4" style="max-width: 500px; ">
+            <div class="search">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="search-2"> <i class='bx bxs-map'></i> <input type="text"
+                                    placeholder="San Francisco,USA"> <button>Search</button> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if bookings %}
+        <div class="user-bookings">
+            {% for booking in bookings %}
+            {% with forloop.counter0 as outer_counter %}
+            {% if booking.a_building.a_category == "Hotel" %}
+            <div class="card bg-dark text-white user-booking-card shadow">
+                <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                    <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                        <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                        <p class="fw-lighter" style="font-size: smaller;">made on {{booking.a_time_date}}</p>
+                    </div>
+                    <div class="d-flex flex-row scroll-div">
+                        <table class="table table-borderless col-md-7" style="color: #f2f4fab8 !important;">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Room No</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Guest</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rooms in rooms_list %}
+                                {% if forloop.counter0 == outer_counter %}
+                                {% for room in rooms %}
+                                <tr>
+                                    <td>{{room.a_roomNo}}</td>
+                                    <td>{{room.a_category.a_category}}</td>
+                                    <td>2</td>
+                                    <td>{{room.a_category.a_price}}</td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="d-flex flex-column">
+                            <div class="container p-3 pb-1">
+                                <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                            </div>
+                            <div class="container p-3 pt-0"><strong>Booked From:</strong><br>
+                                <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between Ammount"
+                        style="border-bottom: .3px solid #e3e3e36f; padding: .5rem 0rem;">
+                        <h5 class="fw-bold">Amount Paid</h5>
+                        <h5 class="fw-bold">$ {{booking.a_payment}}</h5>
+                    </div>
+                </div>
+            </div>
+            {% elif booking.a_building.a_category == "Resturant" %}
+            <div class="card bg-dark text-white user-booking-card shadow">
+                <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                    <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                        <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                        <p class="fw-lighter" style="font-size: smaller;">made on {{booking.a_time_date}}</p>
+                    </div>
+                    <div class="d-flex flex-row scroll-div">
+                        <table class="table table-borderless col-md-7" style="color: #f2f4fab8 !important;">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Table No</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Guest</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for tables in tables_list %}
+                                {% if forloop.counter0 == outer_counter %}
+                                {% for table in tables %}
+                                <tr>
+                                    <td>{{table.a_tableNo}}</td>
+                                    <td>{{table.a_category.a_category}}</td>
+                                    <td>3</td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="d-flex flex-column">
+                            <div class="container p-3 pb-1">
+                                <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                            </div>
+                            <div class="container p-3 pt-0"><strong>Booked From:</strong><br>
+                                <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between Ammount" style="padding: 0rem 0rem;">
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="card bg-dark text-white user-booking-card shadow">
+                <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                    <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                        <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                        <p class="fw-lighter" style="font-size: smaller;">made on {{booking.a_time_date}}</p>
+                    </div>
+                    <div class="d-flex flex-row scroll-div">
+
+                        <div class="d-flex flex-column">
+                            <div class="container p-3 pb-1">
+                                <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                            </div>
+                            <div class="container p-3 pt-0"><strong>Booked From:</strong><br>
+                                <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between Ammount"
+                        style="border-bottom: .3px solid #e3e3e36f; padding: .5rem 0rem;">
+                        <h5 class="fw-bold">Amount Paid</h5>
+                        <h5 class="fw-bold">$ {{booking.a_payment}}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

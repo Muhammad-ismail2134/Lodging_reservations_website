@@ -1,0 +1,752 @@
+{% extends "book/layout.html" %}
+
+{% block body%}
+<section class="section-1">
+    <div class="section-nav">
+        <div class="section-block ">
+            <h4 class="lead display-6" id="section-block-1">Check Bookings</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block ">
+            <h4 class="lead display-6" id="section-block-2">Add New Advert</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block ">
+            <h4 class="lead display-6" id="section-block-3">Add New Offer</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block ">
+            <h4 class="lead display-6" id="section-block-4">Remove Offer</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block ">
+            <h4 class="lead display-6" id="section-block-5">Remove Advert</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block">
+            <h4 class="lead display-6" id="section-block-6">Check Reviews</h4>
+            <div class="clip"></div>
+        </div>
+        <div class="section-block">
+            <h4 class="lead display-6">Check Suggestions</h4>
+            <div class="clip"></div>
+        </div>
+    </div>
+</section>
+<section class="section-2 hidden-section">
+    <div class="user-bookings-container">
+        <h2 style="font-weight: 600;">Customer Bookings</h4>
+            <hr>
+            <div class="container mb-4" style="max-width: 500px; ">
+                <div class="search shadow-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="search-2"> <i class='bx bxs-map'></i> <input type="text"
+                                        placeholder="San Francisco,USA"> <button>Search</button> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-bookings">
+                {% for booking in bookings %}
+                {% with forloop.counter0 as outer_counter %}
+
+                <!-- Modal -->
+                <div class="modal fade" id="Details-{{forloop.counter}}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Booking Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="bold my-3"><strong>Place Details</strong></h4>
+                                <hr>
+                                <div class="container pt-2">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <h6 class="col-md-3">Place Name :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_building.a_name}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Category :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_building.a_category}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Address :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_building.a_address.a_address}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="row">
+                                                <h6 class="col-md-3">City :
+                                                </h6>
+                                                <p class="col-md-6">{{booking.a_building.a_address.a_city}}</p>
+                                            </div>
+                                            <div class="row">
+                                                <h6 class="col-md-3">Country :
+                                                </h6>
+                                                <p class="col-md-6">{{booking.a_building.a_address.a_country}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="bold my-3"><strong>Customer Details</strong></h4>
+                                <hr>
+                                <div class="container">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Name :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker.username}}</p>
+                                        </div>
+                                        {% if booking.a_guest %}
+                                        <div class="row">
+                                            <h6 class="col-md-3">Guest Name :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_guest}}</p>
+                                        </div>
+                                        {% endif %}
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Email :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker.email}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Address :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker_address.a_address}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Phone No. :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker_phone_no}}</p>
+                                        </div>
+                                        <div class="row">
+                                            {% if booking.a_arrival and booking.a_booked_from %}
+                                            <div class="row">
+                                                <h6 class="col-md-3">Estimated Arrival Time :
+                                                </h6>
+                                                <p class="col-md-6">{{booking.a_booked_from}} on {{booking.a_arrival}}
+                                                </p>
+                                            </div>
+                                            {% endif %}
+                                            {% if booking.a_request %}
+                                            <div class="row">
+                                                <h6 class="col-md-3">Request :
+                                                </h6>
+                                                <p class="col-md-6">{{booking.a_request}}</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="bold my-3"><strong>Booking Details</strong></h4>
+                                <hr>
+                                <div class="container">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <h6 class="col-md-3">Booking No :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.id}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Booking from :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Address :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker_address.a_address}}</p>
+                                        </div>
+                                        <div class="row">
+                                            <h6 class="col-md-3">Customer Phone No. :
+                                            </h6>
+                                            <p class="col-md-6">{{booking.a_booker_phone_no}}</p>
+                                        </div>
+                                        {% if booking.a_payment %}
+                                        <div class="row">
+                                            <h6 class="col-md-3">Total Payment :
+                                            </h6>
+                                            <p class="col-md-6">$ {{booking.a_payment}}</p>
+                                        </div>
+                                        {% endif %}
+                                        {% if booking.a_building.a_category == "Hotel" %}
+                                        <h5 class="bold my-3"><strong>Rooms booked</strong></h5>
+                                        <div class="container pt-2">
+                                            <table class="table table-borderless col-md-12"
+                                                style="color: #3a3a3ab8 !important;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Room No</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Guest</th>
+                                                        <th scope="col">Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for rooms in rooms_list %}
+                                                    {% if forloop.counter0 == outer_counter %}
+                                                    {% for room in rooms %}
+                                                    <tr>
+                                                        <td>{{room.a_roomNo}}</td>
+                                                        <td>{{room.a_category.a_category}}</td>
+                                                        <td>2</td>
+                                                        <td>{{room.a_category.a_price}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% elif booking.a_building.a_category == "Resturant"%}
+                                        <h5 class="bold my-3"><strong>Tables booked</strong></h5>
+                                        <div class="container pt-2">
+                                            <table class="table table-borderless col-md-12"
+                                                style="color: #3a3a3ab8 !important;">
+                                                <thead>
+                                                    <tr>
+
+                                                        <th scope="col">Table No</th>
+                                                        <th scope="col">Type</th>
+                                                        <th scope="col">Guest</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for tables in tables_list %}
+                                                    {% if forloop.counter0 == outer_counter %}
+                                                    {% for table in tables %}
+                                                    <tr>
+                                                        <td>{{table.a_tableNo}}</td>
+                                                        <td>{{table.a_category.a_category}}</td>
+                                                        <td>3</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if booking.a_building.a_category == "Hotel" %}
+                <div class="card bg-dark text-white user-booking-card shadow">
+                    <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                            <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                            <p class="fw-lighter" style="font-size: smaller;">made by
+                                <strong>{{booking.a_booker.username}}</strong> on
+                                {{booking.a_time_date}}
+                            </p>
+                        </div>
+                        <div class="d-flex flex-row scroll-div">
+                            <table class="table table-borderless col-md-7" style="color: #f2f4fab8 !important;">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">Room No</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Guest</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rooms in rooms_list %}
+                                    {% if forloop.counter0 == outer_counter %}
+                                    {% for room in rooms %}
+                                    <tr>
+                                        <td>{{room.a_roomNo}}</td>
+                                        <td>{{room.a_category.a_category}}</td>
+                                        <td>2</td>
+                                        <td>{{room.a_category.a_price}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex flex-column">
+                                <div class="d-grid col-12 pb-2 pt-3">
+                                    <button class="btn btn-outline-light" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#Details-{{forloop.counter}}">View Details</button>
+                                </div>
+                                <div class="container p-3 pb-1 pt-1">
+                                    <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                                </div>
+                                <div class="container p-3 pt-0 pb-1"><strong>Booked From:</strong><br>
+                                    <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between Ammount"
+                            style="border-bottom: .3px solid #e3e3e36f; padding: .5rem 0rem;">
+                            <h5 class="fw-bold">Amount Paid</h5>
+                            <h5 class="fw-bold">$ {{booking.a_payment}}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% elif booking.a_building.a_category == "Resturant" %}
+                <div class="card bg-dark text-white user-booking-card shadow">
+                    <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                            <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                            <p class="fw-lighter" style="font-size: smaller;">made on {{booking.a_time_date}}</p>
+                        </div>
+                        <div class="d-flex flex-row scroll-div">
+                            <table class="table table-borderless col-md-7" style="color: #f2f4fab8 !important;">
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">Table No</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Guest</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tables in tables_list %}
+                                    {% if forloop.counter0 == outer_counter %}
+                                    {% for table in tables %}
+                                    <tr>
+                                        <td>{{table.a_tableNo}}</td>
+                                        <td>{{table.a_category.a_category}}</td>
+                                        <td>3</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex flex-column">
+                                <div class="d-grid col-12 pb-2 pt-3">
+                                    <button class="btn btn-outline-light" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#Details-{{forloop.counter}}">View
+                                        Details</button>
+                                </div>
+                                <div class="container p-3 pb-1">
+                                    <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                                </div>
+                                <div class="container p-3 pt-0"><strong>Booked From:</strong><br>
+                                    <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between Ammount" style="padding: 0rem 0rem;">
+                        </div>
+                    </div>
+                </div>
+
+                {% else %}
+                <div class="card bg-dark text-white user-booking-card shadow">
+                    <img src="{{booking.a_building.a_img.url}}" class="card-img" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="d-flex justify-content-between" style="border-bottom: .3px solid #e3e3e36f;">
+                            <h5 class="card-title">{{booking.a_building.a_name}}</h5>
+                            <p class="fw-lighter" style="font-size: smaller;">made on {{booking.a_time_date}}</p>
+                        </div>
+                        <div class="d-flex flex-row scroll-div">
+
+                            <div class="d-flex flex-column">
+                                <div class="container p-3 pb-1">
+                                    <h6>Address: <br><span class="fw-light">{{booking.a_building.a_address}}</span></h6>
+                                </div>
+                                <div class="container p-3 pt-0"><strong>Booked From:</strong><br>
+                                    <p class="lead fs-6">{{booking.a_booked_from}} - {{booking.a_booked_till}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between Ammount"
+                            style="border-bottom: .3px solid #e3e3e36f; padding: .5rem 0rem;">
+                            <h5 class="fw-bold">Amount Paid</h5>
+                            <h5 class="fw-bold">$ {{booking.a_payment}}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endwith %}
+                {% endfor %}
+
+            </div>
+
+    </div>
+
+
+</section>
+<section class="section-3 hidden-section">
+    <div class="container pt-4 pb-4">
+        <form class="p-3" action="{% url 'addAdvertCard' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="inputCity" class="form-label" requied>Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="selfName" aria-label="First name"
+                        required>
+                </div>
+                <div class="col mb-3">
+                    <label for="inputCity" class="form-label">Company</label>
+                    <input type="text" class="form-control" placeholder="Name of Company" aria-label="Last name"
+                        name="company" required>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-3 p-0">
+                <label for="inputCity" class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Address" aria-label="Last name" name="address"
+                    required>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="inputCity" name="city" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="inputCity" class="form-label">Country</label>
+                    <input type="text" class="form-control" placeholder="Country" name="country" aria-label="Last name">
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 ">
+                        <label class="form-label" for="customFile">Choose image</label>
+                        <input type="file" class="form-control" id="customFile" name="image-upload" />
+                    </div>
+                    <div class="col-md-4 mb-3 selector">
+                        <label for="exampleFormControlTextarea1" class="form-label">Category</label>
+                        <select class="form-select" aria-label="multiple select example" name="category"
+                            id="category-advert">
+                            <option selected disabled>Choose...</option>
+                            <option value="Hotel" id="hotel-click">Hotel</option>
+                            <option value="Resturant" id="res-click">Resturant</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Resort">Resort</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-4 " id="wholePrice">
+                        <label class="form-label" for="customFile">Price</label>
+                        <input type="number" placeholder="$0:00" class="form-control" name="wholePrice" />
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="description"
+                    required></textarea>
+                <div id="emailHelp" class="form-text">Write a short description of item being advertized between
+                    50-100
+                    words.</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Detail</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="detail"></textarea>
+                <div id="emailHelp" class="form-text">Write about item being advertized in detail here.</div>
+            </div>
+            <div class="mb-3">
+                <h5>Facilites</h5>
+                <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="wifi" id="flexCheckDefault" checked>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Free Wifi
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="parking" id="flexCheckChecked"
+                        checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Parking
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="service" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Room Service
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="fitness" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Indor Fitness Gym
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="pool" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Indoor Swimming Pool
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="bar" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Bar
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" name="family" id="flexCheckChecked"
+                        checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Family Rooms
+                    </label>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary room-triger" style="display: none;" data-toggle="collapse"
+                data-target="#roomsDetail">Enter Rooms</button>
+            <button type="button" class="btn btn-primary table-triger" style="display: none;" data-toggle="collapse"
+                data-target="#tablesDetail">Enter Tables</button>
+            <div class="table-container collapse mt-4" id="tablesDetail">
+                <hr>
+                <h4>Tables</h4>
+                <div class="col p-0 m-0 mt-3">
+                    <h6>VIP</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="VIPdescription"></textarea>
+                        <div id="emailHelp" class="form-text">Give a about A-Grade Table here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-5 col-lg-5 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Tables</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="VIPNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-2 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Table for</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="vip_table_for" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col p-0 m-0 mt-3">
+                    <h6>Gold</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="Golddescription"></textarea>
+                        <div id="emailHelp" class="form-text">Give a about Type-A Room here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-5 col-lg-5 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Tables</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="GoldNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-2 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Table for</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="gold_table_for" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 m-0 mt-3">
+                    <h6>Common</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="commonDescription"></textarea>
+                        <div id="emailHelp" class="form-text">Give a about Type-A Room here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-5 col-lg-5 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Tables</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="commonNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-2 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Table for</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="common_table_for" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="room-container collapse mt-4" id="roomsDetail">
+                <hr>
+                <h4>Rooms</h4>
+                <div class="col p-0 m-0 mt-3">
+                    <h6>A Grade</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="aGradeDescription"></textarea>
+                        <div id="emailHelp" class="form-text">Write about facilities in A Grade room here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Rooms</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="aGradeNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" placeholder="$00.00"
+                                name="aGradePricePerRoom" />
+                        </div>
+                        <div class="col-md-3 col-lg-2  p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Room of</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" placeholder="2"
+                                name="A_room_for" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col p-0 m-0 mt-3">
+                    <h6>B Grade</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="bGradeDescription"></textarea>
+                        <div id="emailHelp" class="form-text">Give a about Type-A Room here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Rooms</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="bGradeNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="inputCity" placeholder="$00.00"
+                                name="bGradePricePerRoom" min="0" />
+                        </div>
+                        <div class="col-md-3 col-lg-2  p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Room of</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" placeholder="2"
+                                name="B_room_for" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col p-0 m-0 mt-3">
+                    <h6>C Grade</h6>
+                    <div class=" m-0 p-0">
+                        <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            name="cGradeDescription"></textarea>
+                        <div id="emailHelp" class="form-text">Give a about Type-A Room here.</div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">No. of Rooms</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" name="cGradeNoOfRooms" />
+                        </div>
+                        <div class="col-md-3 col-lg-3 mr-3 p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" placeholder="$00.00"
+                                name="cGradePricePerRoom" />
+                        </div>
+                        <div class="col-md-3 col-lg-2   p-0">
+                            <label for="exampleFormControlTextarea1" class="form-label">Room of</label>
+                            <input type="number" class="form-control" id="inputCity" min="0" placeholder="2"
+                                name="C_room_for" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3" id="form-submit">submit</button>
+        </form>
+    </div>
+
+</section>
+<section class="section-4">
+    <div class="container" style="padding:2rem 1rem ;">
+        <h2 style="font-weight: 600;">Add Offer</h4>
+            <hr>
+            <form class="p-3" action="{% url 'makeOffer' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row col-lg-12 col-md-12">
+                    <div class="col-md-5 col-lg-5 mb-3">
+                        <label for="inputCity" class="form-label" requied>Tile of Offer</label>
+                        <input type="text" class="form-control" placeholder="Title of offer" name="offer-title"
+                            aria-label="First name" required>
+                    </div>
+                    <div class="col-lg-4 col-md-3 ">
+                        <label class="form-label" for="customFile">Choose image</label>
+                        <input type="file" class="form-control" id="customFile" name="offer-img" />
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Content of Offer</label>
+                        <textarea class="form-control" rows="4" name="offer-detail"></textarea>
+                        <div class="form-text">Write about the offer within 200-300 characters</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 px-4" id="form-submit">Add</button>
+                </div>
+            </form>
+    </div>
+</section>
+<section class="section-4 hidden-section">
+    <div class="container pt-4 pb-4">
+        <form class="p-3" action="{% url 'removeAdvertCard' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col mb-3">
+                    <label for="inputCity" class="form-label" requied>Name</label>
+                    <input type="text" class="form-control" placeholder="Name" name="selfName" aria-label="First name"
+                        required>
+                </div>
+                <div class="col mb-3">
+                    <label for="inputCity" class="form-label">Company</label>
+                    <input type="text" class="form-control" placeholder="Name of Company" aria-label="Last name"
+                        name="company" required>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-3 p-0">
+                <label for="inputCity" class="form-label">Address</label>
+                <input type="text" class="form-control" placeholder="Address" aria-label="Last name" name="address"
+                    required>
+            </div>
+
+            <button type="submit" class="btn btn-danger mt-3" id="form-submit">remove</button>
+        </form>
+    </div>
+
+</section>
+<section class="section-5 hidden-section">
+    <div class="container" style="padding: 2.5rem 1rem;">
+        <h2 style="font-weight: 600;">Customer Reviews</h4>
+            <hr>
+            <div class="d-flex justify-content-around flex-wrap " style="padding: 2rem 1rem;">
+                {% for review in reviews %}
+                {% with forloop.counter0 as outer_counter %}
+                <div class="card shadow hover-card" style="width: 40vw;max-width: 500px; cursor:pointer;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title">By {{review.a_author.username}}</h5>
+                            </div>
+                            <div>
+                                <p class="text-muted">on {{review.a_date}}</p>
+                            </div>
+                        </div>
+                        <h6 class="card-subtitle mb-2 text-muted rating">
+                            {% for rating in rating_list%}
+                            {% if forloop.counter0 == outer_counter %}
+                            {% for _ in rating %}
+                            <i class="fa-solid fa-star" style="color: #000000;"></i>
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+                        </h6>
+                        <p class="card-text">{{review.a_message}}
+                        </p>
+                    </div>
+                </div>
+                {% endwith %}
+                {% endfor %}
+            </div>
+    </div>
+</section>
+{% endblock %}

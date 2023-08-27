@@ -1,0 +1,225 @@
+{% extends "book/layout.html" %}
+{% load static %}
+{% block body%}
+
+<div class="top-index-container">
+  <img src="{% static 'book\images\travel.jpg' %}">
+  <div class="pic-main-heading">
+    <h4 class="display-3">We help you stay</h4>
+    <div class="subtle muted" style="width: 60vw; margin: 0 auto;">Lorem ipsum dolor sit amet, consectetur adipiscing
+      elit, sed do
+      eiusmod tempor incididunt
+      ut labore et dolore magna
+      aliqua. Ut enim ad minim veniam,</div>
+  </div>
+</div>
+<!--info-->
+<div class="mid-index-container">
+  <div class="buttons-group rounded-3">
+    <div class="mid-button">
+      <h5> Book Now </h5>
+    </div>
+    <div class="mid-button">
+      <h5> Your Bookings</h5>
+    </div>
+    <div class="mid-button">
+      <h5> See all Stays</h5>
+    </div>
+  </div>
+</div>
+<div class="body-container">
+  <div class="container p-3">
+    <h2 class="display-3">Welcome Back
+      {% if user.is_authenticated %}<strong>{{user.username}}<strong>{% endif %}</h2>
+  </div>
+  <!--Offers-->
+  <div class="container mx-auto mt-5" id="section-offers">
+    <h3>Offers</h3>
+    <p class="lead">Promotions, deals and special offers for you</p>
+    <div class="d-flex flex-row justify-content-between flex-wrap ">
+      {% for offer in offers %}
+      <div class="card bg-dark text-white offer-card">
+        <img class="card-img" src="{{offer.a_img.url}}" alt="Card image">
+        <div class="card-img-overlay">
+          <h5 class="card-title">{{offer.a_title}}</h5>
+          <p class="card-text">{{offer.a_content}}</p>
+          <p class="card-text">Last updated 3 mins ago</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!--Recent Searches-->
+    {% if visited_cards %}
+    <h3 class="mt-5">Recently Viewed</h3>
+    <p class="lead">Promotions, deals and special offers for you</p>
+    <div class="slide-main-container">
+      <div class="slide-container-inner">
+        <div class="cont slide-container mb-5 d-flex flex-row" style="overflow: visible;">
+          {% for card in visited_cards %}
+          <div class="card bg-dark text-white img-card-container rounded-3 mr-4"
+            onclick="document.location.href = '{% url 'advert' id=card.id %}'">
+            <img src="{{card.a_img.url}}" class="card-img" alt="{{card.a_name}}">
+            <div class="card-img-overlay image-text">
+              <h5 class="card-title" style="font-size: 1.6rem;">{{card.a_name}}</h5>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-nav-button left"><i class="fa fa-regular fa-arrow-left"></i></button>
+        <button class="slide-nav-button right"><i class="fa fa-regular fa-arrow-right"></i></button>
+      </div>
+    </div>
+    {% endif %}
+    <!--Categories-->
+    {% if categories %}
+    <h3 class="mt-5">Categories</h3>
+    <p class="lead">Promotions, deals and special offers for you</p>
+    <div class="slide-main-container">
+      <div class="slide-container-inner">
+        <div class="cont slide-container mb-5 d-flex flex-row" style="overflow: visible;">
+          {% for card in categories %}
+          <div class="card bg-dark text-white img-card-container rounded-3 mr-4">
+
+            <img src="{% static 'book\images\resort.jpeg' %}" class="card-img" alt="">
+
+            <div class="card-img-overlay image-text">
+              <h5 class="card-title" style="font-size: 2rem; text-align: center; margin: 0 auto !important;">
+                {{ card }}</h5>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-nav-button left"><i class="fa fa-regular fa-arrow-left"></i></button>
+        <button class="slide-nav-button right"><i class="fa fa-regular fa-arrow-right"></i></button>
+      </div>
+    </div>
+    {% endif %}
+    {% if cities %}
+    <h3 class="mt-5">Cities</h3>
+    <p class="lead">Promotions, deals and special offers for you</p>
+    <div class="slide-main-container" id="section-cities">
+      <div class="slide-container-inner">
+        <div class="cont slide-container mb-5 d-flex flex-row" style="overflow: visible;">
+          {% for card in cities %}
+          <div class="card bg-dark text-white img-card-container rounded-3 mr-4">
+            <img src="{% static 'book\images\resort.jpeg' %}" class="card-img" alt="">
+
+            <div class="card-img-overlay image-text">
+              <h5 class="card-title" style="font-size: 2rem; text-align: center; margin: 0 auto !important;">
+                {{ card }}</h5>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-nav-button left"><i class="fa fa-regular fa-arrow-left"></i></button>
+        <button class="slide-nav-button right"><i class="fa fa-regular fa-arrow-right"></i></button>
+      </div>
+    </div>
+    {% endif %}
+    {% if countries %}
+    <h3 class="mt-5">Countries</h3>
+    <p class="lead">Promotions, deals and special offers for you</p>
+    <div class="slide-main-container">
+      <div class="slide-container-inner">
+        <div class="cont slide-container mb-5 d-flex flex-row" style="overflow: visible;">
+          {% for card in countries %}
+          <div class="card bg-dark text-white img-card-container rounded-3 mr-4">
+            <img src="{% static 'book\images\resort.jpeg' %}" class="card-img" alt="">
+
+            <div class="card-img-overlay image-text">
+              <h5 class="card-title" style="font-size: 2rem; text-align: center; margin: 0 auto !important;">
+                {{ card }}</h5>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="slide-nav">
+        <button class="slide-nav-button left"><i class="fa fa-regular fa-arrow-left"></i></button>
+        <button class="slide-nav-button right"><i class="fa fa-regular fa-arrow-right"></i></button>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Review Modal -->
+  <!-- Button trigger modal -->
+  {% if bookings %}
+  {% for booking in bookings %}
+  <button type="button" class="btn btn-primary" style="opacity: 0;" id="review-buttton" data-bs-toggle="modal"
+    data-bs-target="#Modal-review">
+  </button>
+  <!-- Modal -->
+  <form action="{% url 'review' id=booking.id %}" method="post">
+    {% csrf_token %}
+    <div class="modal fade" id="Modal-review" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Rate your stay</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container" style="text-align: center;">
+              <h2 class="display-1 muted mb-0 rate-label">0.0</h2><br>
+              <div class="container d-flex justify-content-center mb-4">
+
+                <div class="row">
+
+                  <div class="col-md-12">
+
+                    <div class="stars">
+                      <input class="star star-5  " id="star-5" type="radio" name="star" />
+
+                      <label class="star star-5 star-input" for="star-5"></label>
+
+                      <input class="star star-4 " id="star-4" type="radio" name="star" />
+
+                      <label class="star star-4 star-input" for="star-4"></label>
+
+                      <input class="star star-3 " id="star-3" type="radio" name="star" />
+
+                      <label class="star star-3 star-input" for="star-3"></label>
+
+                      <input class="star star-2 " id="star-2" type="radio" name="star" />
+
+                      <label class="star star-2 star-input" for="star-2"></label>
+
+                      <input class="star star-1 " id="star-1" type="radio" name="star" />
+
+                      <label class="star star-1 star-input" for="star-1"></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <input class="customer-rating" name="rating" hidden>
+            <div class="container" style="padding-top: 1rem;padding-bottom: 2rem;">
+              <h4 class="mb-4">Write your Review</h4>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                  style="height: 100px" name="message"></textarea>
+                <label for="floatingTextarea">Review</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  {% endfor %}
+  {% endif %}
+</div>
+
+
+{% endblock %}
